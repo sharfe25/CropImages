@@ -16,5 +16,5 @@ dependencies {
   implementation deps.androidx.fragmentKtx
   implementation deps.design.material
   implementation deps.design.constraintLayout
-  implementation project(':cropme')
+  implementation project(':cropImages')
 }
