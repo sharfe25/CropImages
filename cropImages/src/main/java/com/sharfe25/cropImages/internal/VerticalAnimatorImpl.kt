@@ -114,11 +114,11 @@ internal class VerticalAnimatorImpl @VisibleForTesting constructor(
     val diff = (targetView.height * scale - targetView.height) / 2
     if (topBound < rect.top) {
       cancel()
-      val finalPosition = topBound + diff
+      val finalPosition = (bottomBound/2) - (targetView.height/2)
       spring.setStartVelocity(velocity).animateToFinalPosition(finalPosition)
     } else if (rect.bottom < bottomBound) {
       cancel()
-      val finalPosition = bottomBound - targetView.height.toFloat() - diff
+      val finalPosition = (bottomBound/2) - (targetView.height/2)
       spring.setStartVelocity(velocity).animateToFinalPosition(finalPosition)
     }
   }

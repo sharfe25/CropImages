@@ -115,11 +115,11 @@ internal class HorizontalAnimatorImpl @VisibleForTesting constructor(
 
     if (leftBound < rect.left) {
       cancel()
-      val finalPosition = leftBound + diff
+      val finalPosition = (rightBound/2) - (targetView.width/2)
       spring.setStartVelocity(velocity).animateToFinalPosition(finalPosition)
     } else if (rect.right < rightBound) {
       cancel()
-      val finalPosition = rightBound - targetView.width.toFloat() - diff
+      val finalPosition = (rightBound/2) - (targetView.width/2)
       spring.setStartVelocity(velocity).animateToFinalPosition(finalPosition)
     }
   }

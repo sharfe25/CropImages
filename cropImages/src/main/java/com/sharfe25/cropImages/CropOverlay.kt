@@ -70,7 +70,7 @@ abstract class CropOverlay @JvmOverloads constructor(
     borderPaint = if (withBorder) Paint().apply {
       strokeWidth = BORDER_WIDTH.toFloat()
       style = Paint.Style.STROKE
-      color = ContextCompat.getColor(context, R.color.light_white)
+      color = ContextCompat.getColor(context, R.color.blue_light)
     } else null
   }
 

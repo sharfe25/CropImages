@@ -24,7 +24,7 @@ class CropImageView @JvmOverloads constructor(
     val widthScale = if (frameRect != null) frameRect.width() / width else 1f
     val heightScale = if (frameRect != null) frameRect.height() / height else 1f
     val scale = maxOf(widthScale, heightScale)
-    setMeasuredDimension((width * scale).toInt(), (height * scale).toInt())
+    setMeasuredDimension((width).toInt(), (height).toInt())
   }
 
   fun setFrame(frame: RectF) {

@@ -2,6 +2,9 @@ package com.sharfe25.cropImages
 
 import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Matrix
+import android.graphics.Paint
 import android.graphics.Rect
 import android.graphics.RectF
 import android.graphics.drawable.BitmapDrawable
@@ -190,17 +193,41 @@ class CropLayout @JvmOverloads constructor(
     val source = (cropImageView.drawable as BitmapDrawable).bitmap
     thread {
       val bitmap = Bitmap.createScaledBitmap(source, targetRect.width(), targetRect.height(), false)
-      val leftOffset = (frame.left - targetRect.left).toInt()
-      val topOffset = (frame.top - targetRect.top).toInt()
-      val width = frame.width().toInt()
-      val height = frame.height().toInt()
+      val destWidth = frame.width().toInt()
+      val destHeight = frame.height().toInt()
       try {
-        val result = Bitmap.createBitmap(bitmap, leftOffset, topOffset, width, height)
+        val background = Bitmap.createBitmap(destWidth, destHeight, Bitmap.Config.ARGB_8888)
+        val originalWidth: Float = targetRect.width().toFloat()
+        val originalHeight: Float = targetRect.height().toFloat()
+        val canvas = Canvas(background)
+
+        val scaleX = 1280f / originalWidth
+        val scaleY = 720f / originalHeight
+
+        var xTranslation = 0.0f
+        var yTranslation = 0.0f
+        var scale = 1f
+
+        if (scaleX < scaleY) { // Scale on X, translate on Y
+          scale = scaleX
+          yTranslation = (destHeight - originalHeight * scale) / 2.0f
+        } else { // Scale on Y, translate on X
+          scale = scaleY
+          xTranslation = (destWidth - originalWidth * scale) / 2.0f
+        }
+
+        val transformation = Matrix()
+        transformation.postTranslate(xTranslation, yTranslation)
+        transformation.preScale(scale, scale)
+        val paint = Paint()
+        paint.isFilterBitmap = true
+        canvas.drawBitmap(bitmap, transformation, paint)
         mainHandler.post {
           for (listener in listeners) {
-            listener.onSuccess(result)
+            listener.onSuccess(background)
           }
         }
+
       } catch (e: Exception) {
         for (listener in listeners) {
           listener.onFailure(e)
