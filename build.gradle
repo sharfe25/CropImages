@@ -3,13 +3,13 @@
 buildscript {
   ext.configs = [
       version: "2.0.8",
-      groupId: "com.github.takusemba",
+      groupId: "com.github.sharfe25",
       artifactId: "cropme",
       description: "Extremely Smooth and Easy Cropping library for you.",
-      siteUrl: "https://github.com/TakuSemba/CropMe",
-      gitUrl: "https://github.com/TakuSemba/CropMe.git",
-      developerId: "takusemba",
-      developerName: "TakuSemba",
+      siteUrl: "https://github.com/sharfe25/CropImages",
+      gitUrl: "https://github.com/sharfe25/CropImages.git",
+      developerId: "sharfe25",
+      developerName: "sharfe25",
       developerEmail: "takusemba.ele@gmail.com",
       licenseName: "The Apache Software License, Version 2.0",
       licenseUrl: "http://www.apache.org/licenses/LICENSE-2.0.txt",
@@ -48,6 +48,7 @@ buildscript {
   dependencies {
     classpath deps.androidPlugin
     classpath deps.kotlin.plugin
+    classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
   }
 }
 
@@ -57,6 +58,8 @@ allprojects {
     jcenter()
   }
 }
+
+
 
 task clean(type: Delete) {
   delete rootProject.buildDir

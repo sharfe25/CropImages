@@ -8,7 +8,7 @@
 
   <include layout="@layout/merge_crop_toolbar" />
 
-  <com.takusemba.cropme.CropLayout
+  <com.sharfe25.cropImages.CropLayout
     android:id="@+id/crop_view"
     android:layout_width="0dp"
     android:layout_height="0dp"
@@ -25,7 +25,7 @@
     app:layout_constraintTop_toBottomOf="@id/toolbar"
     >
 
-  </com.takusemba.cropme.CropLayout>
+  </com.sharfe25.cropImages.CropLayout>
 
   <include layout="@layout/merge_crop_button" />
 
