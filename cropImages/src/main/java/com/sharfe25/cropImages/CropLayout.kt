@@ -183,10 +183,6 @@ class CropLayout @JvmOverloads constructor(
    */
   @MainThread
   fun crop() {
-    if (isOffFrame()) {
-      Log.w(TAG, "Image is off the frame.")
-      return
-    }
     val frame = frameCache ?: return
     val mainHandler = Handler(Looper.getMainLooper())
     val targetRect = Rect().apply { cropImageView.getHitRect(this) }

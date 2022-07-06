@@ -61,10 +61,6 @@ class CropActivity : AppCompatActivity() {
     })
 
     cropButton.setOnClickListener(View.OnClickListener {
-      if (cropLayout.isOffFrame()) {
-        Snackbar.make(parent, R.string.error_image_is_off_frame, Snackbar.LENGTH_LONG).show()
-        return@OnClickListener
-      }
       progressBar.visibility = View.VISIBLE
       cropLayout.crop()
     })
