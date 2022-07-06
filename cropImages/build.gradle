@@ -2,6 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'maven-publish'
 group = 'com.github.sharfe25'
+version = '1.0.2'
 
 android {
   compileSdkVersion configs.compileSdkVersion
