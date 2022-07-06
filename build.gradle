@@ -2,9 +2,9 @@
 
 buildscript {
   ext.configs = [
-      version: "2.0.8",
+      version: "1.0.2",
       groupId: "com.github.sharfe25",
-      artifactId: "cropme",
+      artifactId: "cropimages",
       description: "Extremely Smooth and Easy Cropping library for you.",
       siteUrl: "https://github.com/sharfe25/CropImages",
       gitUrl: "https://github.com/sharfe25/CropImages.git",
@@ -42,13 +42,14 @@ buildscript {
       mockk: "io.mockk:mockk:1.10.6",
   ]
   repositories {
+    mavenCentral()
     jcenter()
     google()
   }
   dependencies {
     classpath deps.androidPlugin
     classpath deps.kotlin.plugin
-    classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
+    classpath 'com.github.dcendents:android-maven-plugin:1.2'
   }
 }
 
@@ -56,6 +57,7 @@ allprojects {
   repositories {
     google()
     jcenter()
+    mavenCentral()
     maven { url 'https://jitpack.io' }
   }
 }
