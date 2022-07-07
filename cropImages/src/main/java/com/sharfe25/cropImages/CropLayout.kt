@@ -26,6 +26,7 @@ import com.sharfe25.cropImages.internal.GestureAnimation
 import com.sharfe25.cropImages.internal.GestureAnimator
 import java.util.concurrent.CopyOnWriteArrayList
 import kotlin.concurrent.thread
+import kotlin.math.abs
 import kotlin.math.ceil
 import kotlin.math.floor
 
@@ -188,36 +189,68 @@ class CropLayout @JvmOverloads constructor(
     val targetRect = Rect().apply { cropImageView.getHitRect(this) }
     val source = (cropImageView.drawable as BitmapDrawable).bitmap
     thread {
-      val bitmap = Bitmap.createScaledBitmap(source, targetRect.width(), targetRect.height(), false)
+      var bitmap = Bitmap.createScaledBitmap(source, targetRect.width(), targetRect.height(), false)
+      val leftOffset = if (targetRect.left < 0) {
+        (frame.left - targetRect.left).toInt()
+      }else{
+        0
+      }
+      val topOffset = if (targetRect.top < 0) {
+        (frame.top - targetRect.top).toInt()
+      }else{
+        0
+      }
       val destWidth = frame.width().toInt()
       val destHeight = frame.height().toInt()
+      var result: Bitmap
+
       try {
         val background = Bitmap.createBitmap(destWidth, destHeight, Bitmap.Config.ARGB_8888)
-        val originalWidth: Float = targetRect.width().toFloat()
-        val originalHeight: Float = targetRect.height().toFloat()
-        val canvas = Canvas(background)
+        val targetWidth: Float = targetRect.width().toFloat()
+        val targetHeight: Float = targetRect.height().toFloat()
 
-        val scaleX = 1280f / originalWidth
-        val scaleY = 720f / originalHeight
+        result = if(targetRect.left <= 0 && targetRect.top <= 0){
+          Bitmap.createBitmap(bitmap, leftOffset, topOffset, destWidth, destHeight)
+        }else{
+          var heightImage = if (targetRect.top < 0){
+            destHeight
+          }else{
+            targetRect.height()
+          }
 
-        var xTranslation = 0.0f
-        var yTranslation = 0.0f
-        var scale = 1f
+          var widthImage =  if (targetRect.left < 0){
+            destWidth
+          }else{
+            targetRect.width()
+          }
 
-        if (scaleX < scaleY) { // Scale on X, translate on Y
-          scale = scaleX
-          yTranslation = (destHeight - originalHeight * scale) / 2.0f
-        } else { // Scale on Y, translate on X
-          scale = scaleY
-          xTranslation = (destWidth - originalWidth * scale) / 2.0f
+          Bitmap.createBitmap(bitmap, leftOffset, topOffset, widthImage, heightImage)
         }
 
-        val transformation = Matrix()
-        transformation.postTranslate(xTranslation, yTranslation)
-        transformation.preScale(scale, scale)
+        val canvas = Canvas(background)
+
         val paint = Paint()
         paint.isFilterBitmap = true
-        canvas.drawBitmap(bitmap, transformation, paint)
+        var transformation: Matrix = Matrix()
+
+        if (result.width == destWidth && result.height == destHeight) {
+          canvas.drawBitmap(result, transformation, paint)
+        }else{
+          val scaleX = destWidth / targetWidth
+          val scaleY = destHeight / targetHeight
+          var xTranslation = 0.0f
+          var yTranslation = 0.0f
+
+          if (scaleX < scaleY) {
+            yTranslation = abs((destHeight / 2.0f) - (targetHeight / 2.0f))
+          } else {
+            xTranslation = abs((destWidth / 2.0f) - (targetWidth / 2.0f))
+          }
+
+          transformation.postTranslate(xTranslation, yTranslation)
+          canvas.drawBitmap(result, transformation, paint)
+        }
+
         mainHandler.post {
           for (listener in listeners) {
             listener.onSuccess(background)

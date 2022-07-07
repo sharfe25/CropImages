@@ -111,7 +111,7 @@ internal class VerticalAnimatorImpl @VisibleForTesting constructor(
       targetView.scaleX < 1f -> 1f
       else -> targetView.scaleX
     }
-    val diff = (targetView.height * scale - targetView.height) / 2
+
     if (topBound < rect.top) {
       cancel()
       val finalPosition = (bottomBound/2) - (targetView.height/2)
