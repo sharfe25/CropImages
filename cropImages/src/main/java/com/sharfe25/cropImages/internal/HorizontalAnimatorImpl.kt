@@ -111,7 +111,6 @@ internal class HorizontalAnimatorImpl @VisibleForTesting constructor(
       targetView.scaleX < 1f -> 1f
       else -> targetView.scaleX
     }
-    val diff = (targetView.width * scale - targetView.width) / 2
 
     if (leftBound < rect.left) {
       cancel()
