@@ -236,7 +236,7 @@ class CropLayout @JvmOverloads constructor(
         if (result.width == destWidth && result.height == destHeight) {
           canvas.drawBitmap(result, transformation, paint)
         }else{
-          val scaleX = destWidth / targetWidth
+          /*val scaleX = destWidth / targetWidth
           val scaleY = destHeight / targetHeight
           var xTranslation = 0.0f
           var yTranslation = 0.0f
@@ -247,7 +247,7 @@ class CropLayout @JvmOverloads constructor(
             xTranslation = abs((destWidth / 2.0f) - (targetWidth / 2.0f))
           }
 
-          transformation.postTranslate(xTranslation, yTranslation)
+          transformation.postTranslate(xTranslation, yTranslation)*/
           canvas.drawBitmap(result, transformation, paint)
         }
 
