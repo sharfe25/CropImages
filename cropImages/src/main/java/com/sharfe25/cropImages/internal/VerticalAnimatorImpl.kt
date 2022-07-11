@@ -106,12 +106,6 @@ internal class VerticalAnimatorImpl @VisibleForTesting constructor(
   }
 
   private fun adjustToBounds(rect: Rect, velocity: Float = 0f) {
-    val scale = when {
-      maxScale < targetView.scaleX -> maxScale
-      targetView.scaleX < 1f -> 1f
-      else -> targetView.scaleX
-    }
-
     if (topBound < rect.top) {
       cancel()
       val finalPosition = (bottomBound/2) - (targetView.height/2)
