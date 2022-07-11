@@ -2,7 +2,7 @@
 
 buildscript {
   ext.configs = [
-      version: "1.0.4",
+      version: "1.0.6",
       groupId: "com.github.sharfe25",
       artifactId: "cropimages",
       description: "Extremely Smooth and Easy Cropping library for you.",

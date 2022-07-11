@@ -21,10 +21,16 @@ class CropImageView @JvmOverloads constructor(
     val height = measuredHeight.toFloat()
     val width = measuredWidth.toFloat()
     val frameRect = this.frame
-    val widthScale = if (frameRect != null) frameRect.width() / width else 1f
-    val heightScale = if (frameRect != null) frameRect.height() / height else 1f
 
-    setMeasuredDimension((width).toInt(), (height).toInt())
+    var scale : Float
+    if (height > width) {
+      scale = if (frameRect != null) frameRect.height() / height else 1f
+    }else{
+      scale = if (frameRect != null) frameRect.width() / width else 1f
+    }
+
+    setMeasuredDimension((width * scale).toInt(), (height * scale).toInt())
+
   }
 
   fun setFrame(frame: RectF) {

@@ -106,12 +106,6 @@ internal class HorizontalAnimatorImpl @VisibleForTesting constructor(
   }
 
   private fun adjustToBounds(rect: Rect, velocity: Float = 0f) {
-    val scale = when {
-      maxScale < targetView.scaleX -> maxScale
-      targetView.scaleX < 1f -> 1f
-      else -> targetView.scaleX
-    }
-
     if (leftBound < rect.left) {
       cancel()
       val finalPosition = (rightBound/2) - (targetView.width/2)
