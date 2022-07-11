@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'maven-publish'
 group = 'com.github.sharfe25'
-version = '1.0.6'
+version = '1.0.7'
 
 android {
   compileSdkVersion 31
@@ -11,7 +11,7 @@ android {
     minSdkVersion 16
     targetSdkVersion 31
     versionCode 1
-    versionName "1.0.6"
+    versionName "1.0.7"
   }
 
   buildTypes {
@@ -47,7 +47,7 @@ afterEvaluate {
         from components.release
         groupId = "com.github.sharfe25"
         artifactId = 'cropimages'
-        version = '1.0.6'
+        version = '1.0.7'
       }
     }
   }
