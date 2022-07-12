@@ -12,7 +12,7 @@ interface OnCropListener {
    *
    * @param bitmap result bitmap
    */
-  fun onSuccess(bitmap: Bitmap)
+  fun onSuccess(bitmap: Bitmap, trimX: Int, trimY: Int)
 
   /**
    * called when cropping is failed
