@@ -205,9 +205,17 @@ class CropLayout @JvmOverloads constructor(
       var result: Bitmap
 
       try {
-        val background = Bitmap.createBitmap(destWidth, destHeight, Bitmap.Config.ARGB_8888)
-        val targetWidth: Float = targetRect.width().toFloat()
-        val targetHeight: Float = targetRect.height().toFloat()
+        var heightBackground = if(targetRect.height() > destHeight){
+          destHeight
+        }else{
+          targetRect.height()
+        }
+        var widthBackground = if(targetRect.width() > destWidth){
+          destWidth
+        }else{
+          targetRect.width()
+        }
+        val background = Bitmap.createBitmap(widthBackground, heightBackground, Bitmap.Config.ARGB_8888)
 
         result = if(targetRect.left <= 0 && targetRect.top <= 0){
           Bitmap.createBitmap(bitmap, leftOffset, topOffset, destWidth, destHeight)
@@ -233,23 +241,7 @@ class CropLayout @JvmOverloads constructor(
         paint.isFilterBitmap = true
         var transformation: Matrix = Matrix()
 
-        if (result.width == destWidth && result.height == destHeight) {
-          canvas.drawBitmap(result, transformation, paint)
-        }else{
-          /*val scaleX = destWidth / targetWidth
-          val scaleY = destHeight / targetHeight
-          var xTranslation = 0.0f
-          var yTranslation = 0.0f
-
-          if (scaleX < scaleY) {
-            yTranslation = abs((destHeight / 2.0f) - (targetHeight / 2.0f))
-          } else {
-            xTranslation = abs((destWidth / 2.0f) - (targetWidth / 2.0f))
-          }
-
-          transformation.postTranslate(xTranslation, yTranslation)*/
-          canvas.drawBitmap(result, transformation, paint)
-        }
+        canvas.drawBitmap(result, transformation, paint)
 
         mainHandler.post {
           for (listener in listeners) {
