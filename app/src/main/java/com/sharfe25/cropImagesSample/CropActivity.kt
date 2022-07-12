@@ -43,7 +43,7 @@ class CropActivity : AppCompatActivity() {
     selectButton.setOnClickListener { contentLauncher.launch("image/*") }
 
     cropLayout.addOnCropListener(object : OnCropListener {
-      override fun onSuccess(bitmap: Bitmap) {
+      override fun onSuccess(bitmap: Bitmap, trimX: Int, trimY: Int) {
         progressBar.visibility = View.GONE
 
         val view = layoutInflater.inflate(R.layout.dialog_result, null)

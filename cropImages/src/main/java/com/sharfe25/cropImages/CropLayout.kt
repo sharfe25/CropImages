@@ -245,7 +245,7 @@ class CropLayout @JvmOverloads constructor(
 
         mainHandler.post {
           for (listener in listeners) {
-            listener.onSuccess(background)
+            listener.onSuccess(background, topOffset, leftOffset)
           }
         }
 
